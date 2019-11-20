@@ -9,7 +9,7 @@ This short README will go over how to
 * Set parameters.
 * Basic functionalities of the package.
 
-# Compile**
+# Compile
 
 Navigate to the folder ```<your-path>/fibers_compressor/src/driver```
 
