@@ -1,0 +1,3 @@
+g++ -std=c++11 smaples_tests.cpp -o smaples_tests.out
+
+./smaples_tests

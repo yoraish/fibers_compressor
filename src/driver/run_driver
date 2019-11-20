@@ -1,0 +1,13 @@
+g++ -std=c++11 \
+../../libraries/AudioFile-master/AudioFile.cpp \
+../samples/samples.cpp \
+../samples/short_classical_samples.cpp \
+../compressor/compressor.cpp \
+../memory/memory.cpp \
+../audio_writer/audio_writer.cpp \
+../running_filter/running_filter.cpp \
+compressor_driver.cpp \
+-o driver_executable.out
+
+./driver_executable.out
+
