@@ -46,3 +46,10 @@ takes care of that. The destination and multiplier are taken as arguments. The m
 # Outputs
 
 The text file of samples and WAV file outputted can be found in the folders `src/text_compressed` and `src_output_wav` respcetively.
+
+
+# Side notes
+
+For now, keep the packet sizes a multiple of the interval between samples to keep. This will help with reducing artifacts. Will be taken care of soon!
+
+# And that's it, happy developing! :)
