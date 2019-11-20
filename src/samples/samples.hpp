@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "short_classical_samples.cpp"
+#include "long_classical_samples.cpp"
 
 #ifndef SAMPLES_HPP
 #define SAMPLES_HPP
@@ -26,7 +27,12 @@ private:
     std::size_t current_start_ix_ = 0;
 
     // The samples struct to be used.
-    ShortClassicalSamplesStruct samples_struct_;
+    // ====================
+    // Change this to use short/long samples.
+    // ====================
+    // ShortClassicalSamplesStruct samples_struct_;
+    LongClassicalSamplesStruct samples_struct_;
+
 };
 
 

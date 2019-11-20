@@ -2,6 +2,7 @@ g++ -std=c++11 \
 ../../libraries/AudioFile-master/AudioFile.cpp \
 ../samples/samples.cpp \
 ../samples/short_classical_samples.cpp \
+../samples/long_classical_samples.cpp \
 ../compressor/compressor.cpp \
 ../memory/memory.cpp \
 ../audio_writer/audio_writer.cpp \
