@@ -67,7 +67,8 @@ int main(){
 
     // Create instance for compressor.
     // Choose compression method, number of decimals to keep, the interval between samples to keep.
-    Compressor compressor("reduced_sampling_and_precision", 2, 10);
+    // Choose between: {{"dummy", 0}, {"reduced_precision", 1}, {"reduced_sampling", 2}, {"reduced_sampling_and_precision",3}, {"reduced_sampling_precision_encoding", 4}};
+    Compressor compressor("reduced_sampling_precision_encoding", 2, 10);
 
     // Create instance for memory.
     Memory eeprom(2000);

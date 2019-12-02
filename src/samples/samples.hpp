@@ -4,6 +4,7 @@
 #include <vector>
 #include "short_classical_samples.cpp"
 #include "long_classical_samples.cpp"
+#include "yorai_talking_samples.cpp"
 
 #ifndef SAMPLES_HPP
 #define SAMPLES_HPP
@@ -31,7 +32,7 @@ private:
     // Change this to use short/long samples.
     // ====================
     // ShortClassicalSamplesStruct samples_struct_;
-    LongClassicalSamplesStruct samples_struct_;
+    YoraiTalkingSamplesStruct samples_struct_;
 
 };
 

@@ -16,7 +16,7 @@ private:
     size_t compression_method_id_ = 0;
 
     // Map from compression method to id number.
-    const std::unordered_map<std::string, std::size_t> method_to_id_ {{"dummy", 0}, {"reduced_precision", 1}, {"reduced_sampling", 2}, {"reduced_sampling_and_precision",3}};
+    const std::unordered_map<std::string, std::size_t> method_to_id_ {{"dummy", 0}, {"reduced_precision", 1}, {"reduced_sampling", 2}, {"reduced_sampling_and_precision",3},{"reduced_sampling_precision_encoding", 4}};
 
 
     // Settings for compression methods.
@@ -28,6 +28,9 @@ private:
 
     // Throw out (make 0) samples smaller than this value.
     const double lower_bound_threshold_= 0.01;
+
+    // Encoder "symbol" for zero sequence start.
+    const double zero_sequence_start_ = -255;
 
     
 

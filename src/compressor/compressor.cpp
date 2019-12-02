@@ -96,6 +96,78 @@ std::vector<double> Compressor::CompressPacket(const std::vector<double> & sampl
             }
             break;
             } // End scope.
+
+        case 4:
+            /*
+            ==================
+            Reduced Precision AND Reduced sampling Compression function.
+            With zero encoding.
+            ==================
+            */
+            // This  function writes the same samples, with less decimal precision.
+            // Does that once every zero_interval samples.
+
+            { // Scope for declared variables.
+            const size_t factor = pow(10, decimals_to_keep_);
+            const size_t zero_interval = keep_one_out_of_;
+            size_t sample_counter = 0;
+            std::vector<double> pre_encoding_packet;
+
+            for (auto sample_it = samples_packet.begin(); sample_it != samples_packet.end(); ++sample_it){
+
+                if (sample_counter % zero_interval == 0){
+                    double reduced_value = round(*sample_it*factor)/factor;
+                    if (abs(reduced_value) > lower_bound_threshold_){
+                        pre_encoding_packet.emplace_back(reduced_value);
+                    }
+                    else{
+                    pre_encoding_packet.emplace_back(0);
+                    }
+                }
+                else{
+                }
+                ++sample_counter;
+            }
+
+            // Once done with compression of the packet, go through another pass to encode zeros.
+            // The number of zeros seen up to the current index.
+            std::size_t zero_counter = 0; 
+            
+
+            for (auto sample_it = pre_encoding_packet.begin(); sample_it != pre_encoding_packet.end(); ++sample_it){
+
+                // If the item is not zero, then,
+                // (If applicable) put a zero encoding, clear the zero counter.
+                // If zero counter = 0, then simply put the item in the vector.
+                if (*sample_it != 0){
+                    if (zero_counter != 0){
+                        compressed_packet.emplace_back(zero_sequence_start_);
+                        compressed_packet.emplace_back(zero_counter);
+                        zero_counter =0;
+                    }
+                    compressed_packet.emplace_back(*sample_it);
+                }
+
+
+                // If the item is 0, increment the zero counter.
+                else{
+                    zero_counter ++;
+                }
+
+                // If the zero counter is 255 (one byte), then place zero encoding and clear counter.
+
+            }
+
+            // Went though the entire vector.
+            // If zero encoder counter not empty, add the remaining zeros, encoded.
+            if (zero_counter != 0){
+                compressed_packet.emplace_back(zero_sequence_start_);
+                compressed_packet.emplace_back(zero_counter);
+                zero_counter = 0;
+            }
+            break;
+            } // End scope.
+
     }
     return compressed_packet;
 }
@@ -132,6 +204,34 @@ std::vector<double> Compressor::DecompressPacket(const std::vector<double> & com
                 }
             }
             break;
+        
+        case 4:
+            // Get a vector of compressed samples and encoded zeros.
+            // De-encode zeros.
+            // De-compress samples. (Add even more zeros, in this stage).
+            { // Scope for declaring variables.
+            std::vector<double> deencoded_packet;
+            for (auto it = compressed_packet.begin(); it < compressed_packet.end(); it++){
+                if ((*it) == zero_sequence_start_){
+                    // Increment the iterator.
+                    it++;
+                    for (int i = 0; i < *it; i++){
+                        deencoded_packet.emplace_back(0);
+                    }
+                }
+                else{
+                    deencoded_packet.emplace_back(*it);
+                }
+            }
+
+            for (double sample : deencoded_packet){
+                decompressed_packet.emplace_back(sample);
+                for (std::size_t i = 0; i < keep_one_out_of_; i++){
+                    decompressed_packet.emplace_back(0);
+                }
+            }
+        break;
+            } // End new variables scope.
 
     }
 

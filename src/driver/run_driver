@@ -3,6 +3,7 @@ g++ -std=c++11 \
 ../samples/samples.cpp \
 ../samples/short_classical_samples.cpp \
 ../samples/long_classical_samples.cpp \
+../samples/yorai_talking_samples.cpp \
 ../compressor/compressor.cpp \
 ../memory/memory.cpp \
 ../audio_writer/audio_writer.cpp \
