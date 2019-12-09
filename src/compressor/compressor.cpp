@@ -131,9 +131,8 @@ std::vector<double> Compressor::CompressPacket(const std::vector<double> & sampl
 
             // Once done with compression of the packet, go through another pass to encode zeros.
             // The number of zeros seen up to the current index.
-            std::size_t zero_counter = 0; 
             
-
+            std::size_t zero_counter = 0; 
             for (auto sample_it = pre_encoding_packet.begin(); sample_it != pre_encoding_packet.end(); ++sample_it){
 
                 // If the item is not zero, then,
@@ -148,13 +147,18 @@ std::vector<double> Compressor::CompressPacket(const std::vector<double> & sampl
                     compressed_packet.emplace_back(*sample_it);
                 }
 
-
                 // If the item is 0, increment the zero counter.
                 else{
                     zero_counter ++;
+                    // If the zero counter is 255 (one byte), then place zero encoding and clear counter.
+                    // We limit to 255 since this is the maximum value possibly stored in a byte.
+                    if (zero_counter >= 255){
+                        compressed_packet.emplace_back(zero_sequence_start_);
+                        compressed_packet.emplace_back(zero_counter);
+                        zero_counter = 0;
+                        }
                 }
 
-                // If the zero counter is 255 (one byte), then place zero encoding and clear counter.
 
             }
 

@@ -109,7 +109,7 @@ int main(){
     // ====================
     // Wrtie samples to text file. Choose a multiplier for the samples (to make them integers, for instance).
     // ====================
-    eeprom.WriteToTextFile("../text_compressed/memory_vector.txt", 100);
+    eeprom.WriteToTextFile("../text_compressed/memory_vector.txt", 1);
 
     // ====================
     // Get the packets from memory, decompress and smooth.
