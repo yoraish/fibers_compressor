@@ -31,8 +31,8 @@ private:
     // ====================
     // Change this to use short/long samples.
     // ====================
-    // ShortClassicalSamplesStruct samples_struct_;
-    YoraiTalkingSamplesStruct samples_struct_;
+    LongClassicalSamplesStruct samples_struct_;
+    // YoraiTalkingSamplesStruct samples_struct_;
 
 };
 

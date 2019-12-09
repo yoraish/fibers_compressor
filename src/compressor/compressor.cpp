@@ -227,9 +227,15 @@ std::vector<double> Compressor::DecompressPacket(const std::vector<double> & com
                     deencoded_packet.emplace_back(*it);
                 }
             }
+            
 
             for (double sample : deencoded_packet){
-                decompressed_packet.emplace_back(sample);
+                // FIXME(yorai): This is a workaround for not writing big samples. Those big samples come from somewhere! Look back through deencoded packet and look for integers that should not be there (there should not be any integers at all).
+                if (sample <= 0.1){
+                    decompressed_packet.emplace_back(sample);
+                } else{
+                    decompressed_packet.emplace_back(0);
+                }
                 for (std::size_t i = 0; i < keep_one_out_of_; i++){
                     decompressed_packet.emplace_back(0);
                 }
